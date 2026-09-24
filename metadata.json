@@ -1,0 +1,8 @@
+{
+  "name": "Kabadiwala Connect - E-Waste & Traceability",
+  "description": "SIH Hackathon React Native (Expo) E-Waste & Traceability mobile application with role switcher, CPCB compliance, and localized collection workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

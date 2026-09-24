@@ -1,0 +1,48 @@
+{
+  "name": "kabadiwala-connect",
+  "version": "1.0.0",
+  "description": "Kabadiwala Connect Expo and web application",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "expo-start": "expo start"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~57.0.15",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/netinfo": "12.0.1",
+    "@tailwindcss/vite": "^4.1.13",
+    "@vitejs/plugin-react": "^5.0.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "expo": "^57.0.21",
+    "express": "^4.19.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.2.0",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "mongoose": "^8.24.4",
+    "motion": "^12.23.24",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-web": "^0.21.0",
+    "tailwindcss": "^4.1.13",
+    "vite": "^7.1.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/node": "^24.5.2",
+    "@types/react": "~19.2.4",
+    "@types/react-dom": "~19.2.3",
+    "babel-preset-expo": "~57.0.0",
+    "nodemon": "^3.1.0",
+    "typescript": "~6.0.3"
+  }
+}
