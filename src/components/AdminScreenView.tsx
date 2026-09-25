@@ -63,7 +63,11 @@ const INITIAL_COLLECTORS: CollectorUser[] = [
   {
     id: "#KBD-9412",
     name: "Ramesh Kumar",
+<<<<<<< HEAD
     area: "Ward 14, Jalgaon",
+=======
+    area: "Ward 14, New Delhi",
+>>>>>>> accfd2b (Improve admin dashboard responsiveness)
     lotsCount: 142,
     totalWeight: "3.45 MT",
     status: "Verified",
@@ -371,7 +375,11 @@ export const AdminScreenView: React.FC<AdminScreenViewProps> = ({
             className="
               grid
               grid-cols-2
+<<<<<<< HEAD
               lg:grid-cols-4
+=======
+              lg:grid-cols-2
+>>>>>>> accfd2b (Improve admin dashboard responsiveness)
               gap-2
               sm:gap-3
               min-w-0
@@ -679,8 +687,13 @@ export const AdminScreenView: React.FC<AdminScreenViewProps> = ({
               />
             </div>
 
+<<<<<<< HEAD
             <div className="flex items-center justify-between w-full md:w-auto gap-2 min-w-0">
               <div className="flex gap-1 min-w-0">
+=======
+            <div className="flex items-center w-full md:w-auto gap-2 min-w-0 overflow-x-auto">
+              <div className="flex gap-1 shrink-0">
+>>>>>>> accfd2b (Improve admin dashboard responsiveness)
                 {(["All", "Completed", "Pending"] as const).map((filter) => (
                   <button
                     key={filter}
