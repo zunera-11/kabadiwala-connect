@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Language, ManifestItem } from "../types";
 import { AuthUser } from "../auth/auth";
@@ -27,6 +27,7 @@ import {
 
 interface RecyclerScreenViewProps {
   currentUser: AuthUser;
+  forceNotificationsOpen?: boolean;
   language: Language;
   backendIp: string;
   onOpenScanner: () => void;
@@ -66,6 +67,7 @@ type RecyclerTab =
 
 export const RecyclerScreenView: React.FC<RecyclerScreenViewProps> = ({
   currentUser,
+  forceNotificationsOpen,
   language,
   backendIp,
   onOpenScanner,
@@ -77,6 +79,12 @@ export const RecyclerScreenView: React.FC<RecyclerScreenViewProps> = ({
   onEnqueueOffline,
 }) => {
   const [activeTab, setActiveTab] = useState<RecyclerTab>("OVERVIEW");
+
+  useEffect(() => {
+    if (forceNotificationsOpen) {
+      setActiveTab("NOTIFICATIONS");
+    }
+  }, [forceNotificationsOpen]);
 
   const [calibratedWeight, setCalibratedWeight] = useState<number>(48.5);
 
