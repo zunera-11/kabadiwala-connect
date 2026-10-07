@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Language, PickupRequest, ManifestItem } from "../types";
 import { AuthUser } from "../auth/auth";
 import {
@@ -78,6 +78,7 @@ const AUTHORIZED_RECYCLERS: RecyclerLocationInfo[] = [
 
 interface CollectorScreenViewProps {
   currentUser: AuthUser;
+  forceNotificationsOpen?: boolean;
   language: Language;
   backendIp: string;
   onOpenScanner: () => void;
@@ -114,6 +115,7 @@ type CollectorTab =
 
 export const CollectorScreenView: React.FC<CollectorScreenViewProps> = ({
   currentUser,
+  forceNotificationsOpen,
   language,
   backendIp,
   onOpenScanner,
@@ -127,6 +129,12 @@ export const CollectorScreenView: React.FC<CollectorScreenViewProps> = ({
   userLocation = "Ward 14, Jalgaon",
 }) => {
   const [activeTab, setActiveTab] = useState<CollectorTab>("OVERVIEW");
+
+  useEffect(() => {
+    if (forceNotificationsOpen) {
+      setActiveTab("NOTIFICATIONS");
+    }
+  }, [forceNotificationsOpen]);
 
   const [dutyOnline, setDutyOnline] = useState(true);
 

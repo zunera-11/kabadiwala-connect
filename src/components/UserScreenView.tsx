@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrapCategory, Language, ManifestItem } from "../types";
 import { AuthUser } from "../auth/auth";
 import {
@@ -86,6 +86,7 @@ const AVAILABLE_COLLECTORS: CollectorLocationInfo[] = [
 
 interface UserScreenViewProps {
   currentUser: AuthUser;
+  forceNotificationsOpen?: boolean;
   language: Language;
   backendIp: string;
   onOpenScanner: () => void;
@@ -119,6 +120,7 @@ type UserTab =
 
 export const UserScreenView: React.FC<UserScreenViewProps> = ({
   currentUser,
+  forceNotificationsOpen,
   language,
   backendIp,
   onNotify,
@@ -130,6 +132,12 @@ export const UserScreenView: React.FC<UserScreenViewProps> = ({
   userLocation = "Malviya Nagar, Jalgaon",
 }) => {
   const [activeTab, setActiveTab] = useState<UserTab>("OVERVIEW");
+
+  useEffect(() => {
+    if (forceNotificationsOpen) {
+      setActiveTab("NOTIFICATIONS");
+    }
+  }, [forceNotificationsOpen]);
 
   const [selectedCategory, setSelectedCategory] = useState<ScrapCategory>(
     SCRAP_CATEGORIES[2],

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Role, Language } from '../types';
 import { signIn, registerUser } from '../auth/auth';
 import { LOCALES } from '../i18n/locales';
+import { LegalModal, LegalDocType } from './LegalModal';
 import {
   ShieldCheckIcon,
   UserIcon,
@@ -41,6 +42,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
   const [infoMessage, setInfoMessage] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [legalDoc, setLegalDoc] = useState<LegalDocType | null>(null);
+  const [acceptedLegal, setAcceptedLegal] = useState(false);
 
   const t = LOCALES[language];
   const isAdmin = selectedRole === 'ADMIN';
@@ -54,6 +57,10 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
     e.preventDefault();
     setError('');
     setInfoMessage('');
+    if (isRegistering && !acceptedLegal) {
+      setError('Please accept the Privacy Policy and Terms & Conditions to create an account.');
+      return;
+    }
     setLoading(true);
 
     try {
@@ -93,6 +100,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
     setFormData({ location: '' });
     setError('');
     setInfoMessage('');
+    setAcceptedLegal(false);
   };
 
   return (
@@ -281,6 +289,24 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
                 </button>
               </div>
 
+              {isRegistering ? (
+                <label className="flex items-start gap-2 text-[11px] leading-relaxed text-slate-600 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={acceptedLegal}
+                    onChange={e => setAcceptedLegal(e.target.checked)}
+                    className="mt-0.5 h-3.5 w-3.5 accent-emerald-600"
+                  />
+                  <span>
+                    I agree to the <button type="button" onClick={() => setLegalDoc('privacy')} className="font-bold text-emerald-700 underline underline-offset-2 hover:text-emerald-800">Privacy Policy</button> and <button type="button" onClick={() => setLegalDoc('terms')} className="font-bold text-emerald-700 underline underline-offset-2 hover:text-emerald-800">Terms & Conditions</button>.
+                  </span>
+                </label>
+              ) : (
+                <p className="text-[11px] leading-relaxed text-slate-500">
+                  By signing in you agree to our <button type="button" onClick={() => setLegalDoc('privacy')} className="font-bold text-emerald-700 underline underline-offset-2 hover:text-emerald-800">Privacy Policy</button> and <button type="button" onClick={() => setLegalDoc('terms')} className="font-bold text-emerald-700 underline underline-offset-2 hover:text-emerald-800">Terms & Conditions</button>.
+                </p>
+              )}
+
               {error && (
                 <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
                   {error}
@@ -335,12 +361,19 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
           </div>
 
           <div className="mt-6 pt-4 border-t border-slate-200">
+            <div className="flex items-center gap-3 text-[11px] mb-2">
+              <button type="button" onClick={() => setLegalDoc('privacy')} className="font-bold text-emerald-700 hover:text-emerald-800">Privacy Policy</button>
+              <span className="text-slate-300">|</span>
+              <button type="button" onClick={() => setLegalDoc('terms')} className="font-bold text-emerald-700 hover:text-emerald-800">Terms & Conditions</button>
+            </div>
             <p className="text-[11px] font-mono text-slate-500">
               Demo logins: user.demo@kabadiwala.connect / user-demo | collector.demo@kabadiwala.connect / collector-demo | recycler.demo@kabadiwala.connect / recycler-demo | authority.demo@cpcb.gov.in / cpcb-demo
             </p>
           </div>
         </section>
       </div>
+
+      <LegalModal doc={legalDoc} onClose={() => setLegalDoc(null)} onSwitch={setLegalDoc} />
     </main>
   );
 };
